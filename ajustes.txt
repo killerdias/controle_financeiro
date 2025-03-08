@@ -1,0 +1,26 @@
+FAZER TRATAMENTO NO CAMPO CNPJ
+
+
+PLANOS DE CONTAS E CENTRO DE CUSTO --------- EM UMA PLANO DE CONTAR TER VARIOS CENTRO DE CUSTOS NELE
+
+
+COLOCAR FILTRO NO LANÇAMENTOS PAGOS - RECEITA / DESPESA - DESTACAR A COR - 
+
+FAZER UM DASHBORAR MONSTRANO VALOR PAGO
+
+NÃO DEIXAR LANÇAR SEM FORNECEDOR OU CLENTE
+
+COLOCAR MASCARA MONETARIA ONDE FOR VALOR EM DINHEIRO ---ok
+
+COLOCAR UM BOTÃO DE MAIS PARA CADASTRAR FORNECEDOR OU CLIENTE SEM SAIR DA TELA DE LANÇAMENTO
+
+NÃO ESTA RESPEITANDO O FILTRO DO LANÇAMENTO VENCER NEM LANÇAMENTO PAGOS --- ok
+
+====================================================================================
+Próximos Passos (Sugestões):
+Seu sistema já está "muito top", mas se quiser continuar melhorando, aqui estão algumas ideias:
+
+Confirmação antes de excluir : Adicione um pop-up de confirmação (via JavaScript) antes de excluir lançamentos, contas ou transferências.
+Relatórios Avançados : Na rota /relatório , você já tem um texto simples. Você pode adicionar gráficos (ex.: usando Chart.js) ou exportar para PDF.
+Filtros Adicionais : Permite filtrar por conta, plano de contas, ou tipo (receita/despesa) nas páginas /lancamentos e /transferencia .
+Validação de Saldo : Na transferência, verifique se a conta de origem tem saldo suficiente antes de permitir a operação.

@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="mb-4">Lançamentos</h1>
+<form method="POST" class="mb-4 row g-3">
+    <div class="col-md-2">
+        <label class="form-label">Data</label>
+        <input type="date" name="data" class="form-control" required>
+    </div>
+    <div class="col-md-2">
+        <label class="form-label">Valor</label>
+        <input type="number" step="0.01" name="valor" class="form-control" placeholder="Valor" required>
+    </div>
+    <div class="col-md-2">
+        <label class="form-label">Tipo</label>
+        <select name="tipo" class="form-select" required>
+            <option value="despesa">Despesa</option>
+            <option value="receita">Receita</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <label class="form-label">Conta</label>
+        <select name="conta" class="form-select" required>
+            {% for conta in contas %}
+            <option value="{{ conta['id'] }}">{{ conta['nome'] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-2">
+        <label class="form-label">Plano de Contas</label>
+        <select name="plano" class="form-select" required>
+            {% for plano in planos %}
+            <option value="{{ plano['id'] }}">{{ plano['nome'] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-2">
+        <label class="form-label">Fornecedor</label>
+        <select name="fornecedor" class="form-select">
+            <option value="">Nenhum</option>
+            {% for fornecedor in fornecedores %}
+            <option value="{{ fornecedor['id'] }}">{{ fornecedor['nome_fantasia'] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-2">
+        <label class="form-label">Cliente</label>
+        <select name="cliente" class="form-select">
+            <option value="">Nenhum</option>
+            {% for cliente in clientes %}
+            <option value="{{ cliente['id'] }}">{{ cliente['nome'] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-2">
+        <label class="form-label">Forma de Pagamento</label>
+        <select name="forma" class="form-select" required>
+            {% for forma in formas %}
+            <option value="{{ forma['id'] }}">{{ forma['nome'] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-2">
+        <label class="form-label"> </label>
+        <button type="submit" class="btn btn-success w-100">Adicionar</button>
+    </div>
+</form>
+<h2>Filtros</h2>
+<form method="POST" class="mb-4 row g-3">
+    <div class="col-md-3">
+        <label class="form-label">Data</label>
+        <input type="date" name="filtro_data" value="{{ filtro_data or '' }}" class="form-control">
+    </div>
+    <div class="col-md-3">
+        <label class="form-label">Tipo</label>
+        <select name="filtro_tipo" class="form-select">
+            <option value="">Todos</option>
+            <option value="despesa" {% if filtro_tipo == 'despesa' %}selected{% endif %}>Despesa</option>
+            <option value="receita" {% if filtro_tipo == 'receita' %}selected{% endif %}>Receita</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <label class="form-label"> </label>
+        <button type="submit" name="filtro" class="btn btn-primary w-100">Filtrar</button>
+    </div>
+</form>
+<h2>Lista</h2>
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Valor</th>
+                <th>Tipo</th>
+                <th>Conta</th>
+                <th>Plano</th>
+                <th>Fornecedor</th>
+                <th>Cliente</th>
+                <th>Forma</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for lancamento in lancamentos %}
+            <tr>
+                <td>{{ lancamento['data_lancamento'] | format_date }}</td>
+                <td>{{ lancamento['valor'] | format_currency }}</td>
+                <td>{{ lancamento['tipo'] }}</td>
+                <td>{{ lancamento['conta_nome'] }}</td>
+                <td>{{ lancamento['plano_nome'] }}</td>
+                <td>{{ lancamento['fornecedor_nome'] or '-' }}</td>
+                <td>{{ lancamento['cliente_nome'] or '-' }}</td>
+                <td>{{ lancamento['forma_nome'] }}</td>
+                <td>{{ lancamento['status'] }}</td>
+                <td>
+                    {% if lancamento['status'] == 'pendente' %}
+                    <form method="POST" style="display:inline;">
+                        <button type="submit" name="baixar" value="{{ lancamento['id'] }}" class="btn btn-success btn-sm">Baixar</button>
+                    </form>
+                    {% endif %}
+                    <form method="POST" style="display:inline;">
+                        <button type="submit" name="delete" value="{{ lancamento['id'] }}" class="btn btn-danger btn-sm">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

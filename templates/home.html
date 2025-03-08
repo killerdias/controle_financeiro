@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="mb-4">Bem-vindo ao Controle Financeiro</h1>
+
+<div class="row">
+    <!-- Saldos das Contas (lado esquerdo) -->
+    <div class="col-md-6 col-12 mb-4">
+        <h2>Saldos das Contas</h2>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Conta</th>
+                        <th>Saldo Inicial</th>
+                        <th>Saldo Atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for conta in contas %}
+                    <tr>
+                        <td>{{ conta['nome'] }}</td>
+                        <td>{{ conta['saldo_inicial'] | format_currency }}</td>
+                        <td>{{ saldos[conta['id']] | format_currency }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Lançamentos Pagos e Lançamentos a Vencer (lado direito) -->
+    <div class="col-md-6 col-12 mb-4">
+        <!-- Lançamentos Pagos -->
+        <h2>Lançamentos Pagos ({{ lancamentos_pagos|length }})</h2>
+        <form method="GET" class="mb-3 row g-3">
+            <div class="col-md-5 col-12">
+                <label class="form-label">Data Início</label>
+                <input type="date" name="data_inicio" class="form-control" value="{{ filtro_data_inicio }}">
+            </div>
+            <div class="col-md-5 col-12">
+                <label class="form-label">Data Fim</label>
+                <input type="date" name="data_fim" class="form-control" value="{{ filtro_data_fim }}">
+            </div>
+            <div class="col-md-2 col-12">
+                <button type="submit" class="btn btn-primary mt-md-4 mt-2 w-100">Filtrar</button>
+            </div>
+        </form>
+        {% if lancamentos_pagos %}
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Valor</th>
+                        <th>Tipo</th>
+                        <th>Conta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for lancamento in lancamentos_pagos %}
+                    <tr>
+                        <td>{{ lancamento['data_lancamento'] | format_date }}</td>
+                        <td>{{ lancamento['valor'] | format_currency }}</td>
+                        <td>{{ lancamento['tipo'] }}</td>
+                        <td>{{ lancamento['conta_nome'] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p>Nenhum lançamento pago no período selecionado.</p>
+        {% endif %}
+
+        <!-- Lançamentos a Vencer (abaixo de Lançamentos Pagos) -->
+        <h2 class="mt-5">Lançamentos a Vencer ({{ lancamentos_a_vencer|length }})</h2>
+        <form method="GET" class="mb-3 row g-3">
+            <div class="col-md-5 col-12">
+                <label class="form-label">Data Início</label>
+                <input type="date" name="data_inicio" class="form-control" value="{{ filtro_data_inicio }}">
+            </div>
+            <div class="col-md-5 col-12">
+                <label class="form-label">Data Fim</label>
+                <input type="date" name="data_fim" class="form-control" value="{{ filtro_data_fim }}">
+            </div>
+            <div class="col-md-2 col-12">
+                <button type="submit" class="btn btn-primary mt-md-4 mt-2 w-100">Filtrar</button>
+            </div>
+        </form>
+        {% if lancamentos_a_vencer %}
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Valor</th>
+                        <th>Tipo</th>
+                        <th>Conta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for lancamento in lancamentos_a_vencer %}
+                    <tr>
+                        <td>{{ lancamento['data_lancamento'] | format_date }}</td>
+                        <td>{{ lancamento['valor'] | format_currency }}</td>
+                        <td>{{ lancamento['tipo'] }}</td>
+                        <td>{{ lancamento['conta_nome'] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p>Nenhum lançamento a vencer no período selecionado.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

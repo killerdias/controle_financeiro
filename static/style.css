@@ -1,0 +1,168 @@
+/* static/style.css */
+body {
+    background-color: #f4f7fa;
+    font-family: 'Arial', 'Helvetica', sans-serif; /* Adicionando fallback mais moderna */
+    margin: 0;
+    padding-top: 70px; /* Espaço para a navbar fixa */
+}
+
+/* Navbar */
+.navbar-dark {
+    background-color: #2c3e50 !important;
+    position: fixed; /* Fixar a navbar no topo */
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.navbar-brand, .nav-link {
+    color: #ecf0f1 !important;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #3498db !important;
+}
+
+.dropdown-menu {
+    background-color: #34495e;
+}
+
+.dropdown-item {
+    color: #ecf0f1;
+}
+
+.dropdown-item:hover {
+    background-color: #3498db;
+    color: #fff;
+}
+
+/* Títulos */
+h1, h2 {
+    color: #2c3e50;
+    font-size: 2rem; /* Tamanho padrão para desktop */
+}
+
+/* Container */
+.container {
+    animation: fadeIn 0.5s ease-in;
+    padding: 15px;
+    max-width: 100%;
+}
+
+/* Tabelas */
+.table {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.table thead th {
+    background-color: #3498db;
+    color: #fff;
+}
+
+.table tbody tr:hover {
+    background-color: #ecf0f1;
+    transition: background-color 0.3s ease;
+}
+
+/* Tornar tabelas responsivas */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Melhora a rolagem em dispositivos móveis */
+}
+
+/* Botões */
+.btn-primary {
+    background-color: #2980b9;
+    border-color: #2980b9;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #3498db;
+    border-color: #3498db;
+}
+
+.btn-success {
+    background-color: #27ae60;
+    border-color: #27ae60;
+}
+
+.btn-success:hover {
+    background-color: #2ecc71;
+    border-color: #2ecc71;
+}
+
+/* Acessibilidade: Foco visível para botões e links */
+.btn:focus, .nav-link:focus, .form-control:focus, .form-select:focus {
+    outline: 2px solid #3498db;
+    outline-offset: 2px;
+}
+
+/* Ajustes para formulários */
+.form-control, .form-select {
+    padding: 8px;
+    font-size: 1rem;
+}
+
+/* Animação de Fade-In */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Ajustes de Responsividade */
+@media (max-width: 767px) {
+    /* Ajustar títulos para telas menores */
+    h1, h2 {
+        font-size: 1.5rem;
+    }
+
+    /* Ajustar espaçamentos entre seções */
+    .col-md-6, .col-md-5, .col-md-2 {
+        margin-bottom: 15px;
+    }
+
+    /* Ajustar margens de botões em formulários */
+    .mt-md-4 {
+        margin-top: 15px !important;
+    }
+
+    /* Garantir que inputs, selects e botões ocupem 100% da largura */
+    .form-control, .form-select, .btn {
+        width: 100%;
+        font-size: 0.9rem; /* Reduzir um pouco o tamanho da fonte */
+    }
+
+    /* Ajustar padding para tabelas */
+    .table {
+        font-size: 0.9rem;
+    }
+
+    /* Ajustar o tamanho das células da tabela */
+    .table th, .table td {
+        padding: 8px;
+    }
+
+    /* Garantir que a navbar não sobreponha o conteúdo */
+    body {
+        padding-top: 60px; /* Reduzir o padding para telas menores */
+    }
+}
+
+@media (max-width: 576px) {
+    /* Ajustar ainda mais os tamanhos para telas muito pequenas */
+    h1, h2 {
+        font-size: 1.25rem;
+    }
+
+    .form-control, .form-select, .btn {
+        font-size: 0.85rem;
+    }
+
+    .table th, .table td {
+        padding: 6px;
+    }
+}

@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="mb-4">Clientes</h1>
+<form method="POST" class="mb-4 row g-3">
+    <div class="col-md-4">
+        <input type="text" name="cpf_cnpj" class="form-control" placeholder="CPF/CNPJ" required>
+    </div>
+    <div class="col-md-4">
+        <input type="text" name="nome" class="form-control" placeholder="Nome" required>
+    </div>
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-success w-100">Adicionar</button>
+    </div>
+</form>
+<h2>Lista</h2>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>CPF/CNPJ</th>
+            <th>Nome</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for cliente in clientes %}
+        <tr>
+            <td>{{ cliente['id'] }}</td>
+            <td>{{ cliente['cpf_cnpj'] }}</td>
+            <td>{{ cliente['nome'] }}</td>
+            <td>
+                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ cliente['id'] }}">Editar</button>
+                <form method="POST" style="display:inline;">
+                    <button type="submit" name="delete" value="{{ cliente['id'] }}" class="btn btn-danger btn-sm">Excluir</button>
+                </form>
+            </td>
+        </tr>
+        <!-- Modal de Edição -->
+        <div class="modal fade" id="editModal{{ cliente['id'] }}" tabindex="-1" aria-labelledby="editModalLabel{{ cliente['id'] }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel{{ cliente['id'] }}">Editar Cliente {{ cliente['nome'] }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form method="POST">
+                        <div class="modal-body">
+                            <input type="hidden" name="id" value="{{ cliente['id'] }}">
+                            <div class="mb-3">
+                                <label class="form-label">CPF/CNPJ</label>
+                                <input type="text" name="cpf_cnpj" value="{{ cliente['cpf_cnpj'] }}" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Nome</label>
+                                <input type="text" name="nome" value="{{ cliente['nome'] }}" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" name="edit" class="btn btn-primary">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
